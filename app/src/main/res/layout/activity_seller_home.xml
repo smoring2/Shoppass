@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".activities.SellerHomeActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_sellerinfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+<!--        <Button-->
+<!--            android:id="@+id/btn_sellerLogOut"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/btn_rounded_corner_border"-->
+<!--            android:onClick="sellerHomeClick"-->
+<!--            android:padding="5dp"-->
+<!--            android:text="Log out"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textStyle="bold|italic"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/tv_sellerStoreName"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/tv_sellerStoreName" />-->
+        <TextView
+            android:id="@+id/tv_sellerStoreName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_margin="10dp"
+            android:text="Store Name"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+        <TextView
+            android:id="@+id/tv_sellerStoreAdd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_margin="10dp"
+            android:textStyle="bold"
+            android:text="Store Add"
+            app:layout_constraintTop_toBottomOf="@+id/tv_sellerStoreName"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageButton
+        android:id="@+id/ib_addNewPromotion"
+        android:src="@drawable/icons_add_50"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:onClick="sellerHomeClick"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_sellerinfo"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_storePromotions"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:foregroundGravity="center"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintLeft_toRightOf="@id/ib_addNewPromotion"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_sellerinfo" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_storeProducts"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_storePromotions" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

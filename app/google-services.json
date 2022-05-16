@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "161883818349",
+    "project_id": "cs5520-shoppass",
+    "storage_bucket": "cs5520-shoppass.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:161883818349:android:2d823d3c34c91e20b37264",
+        "android_client_info": {
+          "package_name": "edu.neu.madcourse.numad22sp_shoppass"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "161883818349-5c9ao7f51mf3358kslaahh97oquq4hp3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDitL9Y52KIs96Lg6RNRL68S9nBOkDzj0Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "161883818349-5c9ao7f51mf3358kslaahh97oquq4hp3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

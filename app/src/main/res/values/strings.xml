@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">NUMAD22Sp_Shoppass</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_buyer_name_hint">Username</string>
+    <string name="login_buyer_password_hint">Password</string>
+    <string name="login_seller_name_hint">Store Name</string>
+    <string name="login_seller_password_hint">Store Address</string>
+    <string name="default_notification_channel_id">fcm_default_channel</string>
+
+
+    <!--    FCM-->
+    <string name="msg_subscribed_success">Successfully Subscribed</string>
+    <string name="msg_subscribed_fail">Subscribe failed</string>
+    <string name="msg_unsubscribed_success">Successfully Unsubscribed</string>
+    <string name="msg_unsubscribed_fail">Unsubscribe failed</string>
+</resources>

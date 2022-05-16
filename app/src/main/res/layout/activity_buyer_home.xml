@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".activities.BuyerHomeActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_top"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/ib_showUserAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:onClick="buyerHomeTopClick"
+            android:src="@drawable/buyerhome_list_24"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_shoppass"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="SHOPPASS"
+            android:textColor="@color/purple_200"
+            android:textSize="25sp"
+            android:textStyle="italic|bold"
+            app:layout_constraintLeft_toRightOf="@id/ib_showUserAccount"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <!--        <EditText-->
+        <!--            android:id="@+id/et_search"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_marginLeft="10dp"-->
+        <!--            android:layout_marginTop="5dp"-->
+        <!--            android:layout_marginBottom="5dp"-->
+        <!--            android:background="@drawable/edittext_rounded_corner_border"-->
+        <!--            android:hint=" Search here..."-->
+        <!--            android:paddingLeft="60dp"-->
+        <!--            app:layout_constraintLeft_toRightOf="@id/tv_shoppass"-->
+        <!--            app:layout_constraintRight_toRightOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <!--        <ImageButton-->
+        <!--            android:id="@+id/ib_search"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginLeft="5dp"-->
+        <!--            android:onClick="buyerHomeTopClick"-->
+        <!--            android:src="@drawable/icon_search_24"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintLeft_toLeftOf="@+id/et_search"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FBFBFB"
+        android:padding="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_top">
+
+            <TextView
+                android:id="@+id/tv_listUsername"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="User Name"
+                android:textColor="@color/sapphire"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_liststores"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_corner_border"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_listUsername">
+
+                <ImageView
+                    android:id="@+id/iv_storeicon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:foregroundGravity="center"
+                    android:src="@drawable/icons_store_64"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_listFavStores"
+                    android:layout_width="260dp"
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical"
+                    android:onClick="listClick"
+                    android:padding="5dp"
+                    android:text="My Favorite Shops!"
+                    android:textSize="25sp"
+                    app:layout_constraintLeft_toRightOf="@id/iv_storeicon"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_listproducts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_corner_border"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_liststores">
+
+                <ImageView
+                    android:id="@+id/iv_producticon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:foregroundGravity="center"
+                    android:src="@drawable/icons_groceries_64"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_listFavProducts"
+                    android:layout_width="260dp"
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical"
+                    android:onClick="listClick"
+                    android:padding="5dp"
+                    android:text="My Favorite Products!"
+                    android:textSize="25sp"
+                    app:layout_constraintLeft_toRightOf="@id/iv_producticon"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_favStores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Stores Nearby"
+        android:textColor="@color/blue"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_top" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_favStores"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_favStores" />
+
+    <TextView
+        android:id="@+id/tv_allPromotions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="All Promotions"
+        android:textColor="@color/blue"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_favStores" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_buyerHomePromotion"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:foregroundGravity="center"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_allPromotions" />
+
+    <TextView
+        android:id="@+id/tv_shops"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:padding="5dp"
+        android:text="Shops"
+        android:textColor="@color/blue"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_buyerHomePromotion" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_shops"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_shops" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

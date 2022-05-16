@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".activities.ChoiceActivity">
+
+    <Button
+        android:id="@+id/btn_seller"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:text="I am a seller"
+        android:textAllCaps="false"
+        android:onClick="chooseClick"
+        android:textSize="28sp"
+        android:textStyle="bold|italic"
+        android:background="@drawable/btn_rounded_corner_border"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+    <Button
+        android:id="@+id/btn_buyer"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:text="I am a buyer"
+        android:textAllCaps="false"
+        android:onClick="chooseClick"
+        android:textSize="28sp"
+        android:textStyle="bold|italic"
+        android:background="@drawable/btn_rounded_corner_border"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.6"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

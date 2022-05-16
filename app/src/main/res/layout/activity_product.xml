@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    tools:context=".activities.ProductActivity">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_prodTop"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/btn_norounded_solid"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/ib_backarrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="prodActivityClick"
+            android:src="@drawable/icons_leftarrow_30"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_prodName"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Product name"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/ib_shareproduct"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:onClick="prodActivityClick"-->
+<!--            android:src="@drawable/icons_share_rounded_30"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:layout_margin="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_prodTop">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_prod_images"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_prod_productName"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:text="product1"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_prod_images" />
+
+            <TextView
+                android:id="@+id/tv_prod_productPrice"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:text="$ 10"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_prod_productName" />
+
+            <ImageButton
+                android:id="@+id/ib_prod_likeProduct"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="prodActivityClick"
+                android:src="@drawable/icons_unlikeheart_30"
+                app:layout_constraintRight_toRightOf="@id/rv_prod_images"
+                app:layout_constraintTop_toTopOf="@id/tv_prod_productPrice" />
+            <ImageButton
+                android:id="@+id/ib_triright"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:onClick="prodActivityClick"
+                android:src="@drawable/icons_sortright_30"
+                app:layout_constraintTop_toBottomOf="@id/tv_prod_productPrice"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+            <TextView
+                android:id="@+id/tv_prod_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textSize="20sp"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toBottomOf="@id/tv_prod_productPrice"
+                app:layout_constraintLeft_toRightOf="@id/ib_triright"/>
+            <TextView
+                android:id="@+id/tv_prod_alldesc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="This is the description for this product"
+                app:layout_constraintLeft_toLeftOf="@id/ib_triright"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ib_triright"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
