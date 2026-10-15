@@ -4,7 +4,12 @@ plugins {
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdk 32
+    namespace 'edu.neu.madcourse.numad22sp_shoppass'
+    compileSdk 34
+
+    buildFeatures {
+        buildConfig true
+    }
 
     def apikeyPropertiesFile = rootProject.file("apikey.properties")
     def apikeyProperties = new Properties()
@@ -29,8 +34,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 }
 
