@@ -1,0 +1,52 @@
+{
+  "rules": {
+    "customers": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    },
+    "stores": {
+      "$storeName": {
+        ".read": "auth != null",
+        ".write": "auth != null && (!data.exists() || data.child('ownerUid').val() === auth.uid)"
+      }
+    },
+    "products": {
+      "$storeName": {
+        ".read": "auth != null",
+        ".write": "auth != null && root.child('stores').child($storeName).child('ownerUid').val() === auth.uid"
+      }
+    },
+    "product_store": {
+      "$productId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+    "promotions": {
+      "$promotionId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+    "promotion_store": {
+      "$storeName": {
+        ".read": "auth != null",
+        ".write": "auth != null && root.child('stores').child($storeName).child('ownerUid').val() === auth.uid"
+      }
+    },
+    "fav_products": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    },
+    "fav_stores": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    }
+  }
+}

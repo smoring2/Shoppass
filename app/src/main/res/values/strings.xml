@@ -4,7 +4,7 @@
     <string name="login_buyer_name_hint">Username</string>
     <string name="login_buyer_password_hint">Password</string>
     <string name="login_seller_name_hint">Store Name</string>
-    <string name="login_seller_password_hint">Store Address</string>
+    <string name="login_seller_password_hint">Password</string>
     <string name="default_notification_channel_id">fcm_default_channel</string>
 
 

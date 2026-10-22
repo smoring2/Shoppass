@@ -25,6 +25,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -372,6 +373,7 @@ public class BuyerHomeActivity extends AppCompatActivity {
                 return true;
 
             case R.id.log_out:
+                FirebaseAuth.getInstance().signOut();
                 BuyerHomeActivity.removeUsernameFromLocalCache();
                 intent = new Intent(BuyerHomeActivity.this, ChoiceActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

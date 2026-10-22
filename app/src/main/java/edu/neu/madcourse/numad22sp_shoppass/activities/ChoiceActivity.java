@@ -8,8 +8,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
+
 import edu.neu.madcourse.numad22sp_shoppass.R;
+import edu.neu.madcourse.numad22sp_shoppass.database.RealtimeDatabase;
 import edu.neu.madcourse.numad22sp_shoppass.fcm.FCMUtil;
 
 public class ChoiceActivity extends AppCompatActivity {
@@ -18,13 +23,15 @@ public class ChoiceActivity extends AppCompatActivity {
     private static String SERVER_KEY;
     private SharedPreferences sharedPreferences;
     private String loginUser;
-    private String loginPassword;
     private Boolean isBuyer;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choice);
+
+        mAuth = FirebaseAuth.getInstance();
 
         try {
             setClientToken();
@@ -37,7 +44,9 @@ public class ChoiceActivity extends AppCompatActivity {
         connectToFCM();
         Log.e(TAG, "login local cache: " + this.sharedPreferences.getAll().toString());
 
-        if (this.sharedPreferences.contains("loginUser")) {
+        // Only auto-login if there is a valid Firebase Auth session
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null && this.sharedPreferences.contains("loginUser")) {
             this.loginUser = this.sharedPreferences.getString("loginUser", null);
             Toast toast = Toast.makeText(getApplicationContext(), "User already login", Toast.LENGTH_SHORT);
             toast.show();
@@ -89,10 +98,28 @@ public class ChoiceActivity extends AppCompatActivity {
         thread.join();
     }
 
+    /**
+     * Auto-login only proceeds when FirebaseAuth confirms the user is still authenticated.
+     * The cached prefs (loginUser, isBuyer) are used only for UI routing — the actual
+     * identity comes from FirebaseAuth.
+     */
     private void autoLogin() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            // No valid Firebase Auth session — clear stale prefs and require re-login
+            SharedPreferences.Editor editor = this.sharedPreferences.edit();
+            editor.clear();
+            editor.apply();
+            Toast.makeText(this, "Session expired. Please sign in again.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         this.loginUser = this.sharedPreferences.getString("loginUser", null);
-        this.loginPassword = this.sharedPreferences.getString("loginPassword", null);
         this.isBuyer = this.sharedPreferences.getBoolean("isBuyer", false);
+
+        if (this.loginUser == null) {
+            return;
+        }
 
         Intent intent;
         if (this.isBuyer) {
@@ -101,7 +128,8 @@ public class ChoiceActivity extends AppCompatActivity {
         } else {
             intent = new Intent(ChoiceActivity.this, SellerHomeActivity.class);
             intent.putExtra("storename", this.loginUser);
-            intent.putExtra("address", this.loginPassword);
+            // Address will be fetched from the database by SellerHomeActivity if needed
+            intent.putExtra("address", "");
         }
         startActivity(intent);
     }

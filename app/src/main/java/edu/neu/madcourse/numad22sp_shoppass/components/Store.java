@@ -8,13 +8,25 @@ public class Store {
     private String TAG = "Store";
     public String name;
     public String address;
+    public String ownerUid;
     public double latitude;
     public double longitude;
     public boolean isLiked;
 
+    public Store() {
+        // Default constructor required for Firebase deserialization
+    }
+
     public Store(String name, String address) {
         this.name = name;
         this.address = address;
+        this.isLiked = false;
+    }
+
+    public Store(String name, String address, String ownerUid) {
+        this.name = name;
+        this.address = address;
+        this.ownerUid = ownerUid;
         this.isLiked = false;
     }
 
