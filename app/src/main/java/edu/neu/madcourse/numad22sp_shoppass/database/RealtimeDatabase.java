@@ -47,41 +47,93 @@ public class RealtimeDatabase {
         this.storageRef = storage.getReference();
     }
 
-    public void changeUser(Boolean is_customer, Customer customer, Store store) {
-        if (is_customer) {
-            dbRef.child("customers").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    if (!task.isSuccessful()) {
-                        Log.e("firebase", "Error getting data", task.getException());
+    /**
+     * Registers a new customer in the database, keyed by their authenticated UID.
+     * Rejects registration if the UID already exists.
+     */
+    public void registerCustomer(String uid, Customer customer, AuthResultCallback callback) {
+        dbRef.child("customers").child(uid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                    callback.onFailure("Database error.");
+                } else {
+                    if (task.getResult().getValue() != null) {
+                        // Customer already exists for this UID — this is fine for login,
+                        // the record already belongs to this authenticated user.
+                        callback.onSuccess();
                     } else {
-                        HashMap<String, Object> existing_customers = (HashMap<String, Object>) task.getResult().getValue();
+                        // New customer registration
+                        dbRef.child("customers").child(uid).setValue(customer)
+                                .addOnSuccessListener(aVoid -> callback.onSuccess())
+                                .addOnFailureListener(e -> callback.onFailure("Failed to register customer."));
+                    }
+                }
+            }
+        });
+    }
 
-                        if (existing_customers == null || existing_customers.get(customer.username) == null) {
-                            dbRef.child("customers").child(customer.username).setValue(customer);
-                        } else if (((HashMap<String, Object>) existing_customers.get(customer.username)).get("token") == null
-                                || !(((HashMap<String, Object>) existing_customers.get(customer.username)).get("token").equals(customer.token))) {
-                            dbRef.child("customers").child(customer.username).child("token").setValue(customer.token);
+    /**
+     * Registers a new store in the database. Rejects registration if the store name
+     * is already taken by a different owner (ownerUid mismatch).
+     */
+    public void registerStore(String uid, Store store, AuthResultCallback callback) {
+        dbRef.child("stores").child(store.name).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                    callback.onFailure("Database error.");
+                } else {
+                    if (task.getResult().getValue() != null) {
+                        // Store already exists — check owner
+                        HashMap<String, Object> existingStore = (HashMap<String, Object>) task.getResult().getValue();
+                        String existingOwnerUid = (String) existingStore.get("ownerUid");
+                        if (existingOwnerUid != null && existingOwnerUid.equals(uid)) {
+                            // Same owner, allow login
+                            callback.onSuccess();
+                        } else {
+                            // Different owner or no ownerUid — reject
+                            callback.onFailure("Store name is already taken.");
+                        }
+                    } else {
+                        // New store — register with ownerUid
+                        store.ownerUid = uid;
+                        dbRef.child("stores").child(store.name).setValue(store)
+                                .addOnSuccessListener(aVoid -> callback.onSuccess())
+                                .addOnFailureListener(e -> callback.onFailure("Failed to register store."));
+                    }
+                }
+            }
+        });
+    }
+
+    /**
+     * Verifies that the authenticated user (uid) owns the store with the given name.
+     */
+    public void verifyStoreOwner(String uid, String storeName, AuthResultCallback callback) {
+        dbRef.child("stores").child(storeName).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                    callback.onFailure("Database error.");
+                } else {
+                    if (task.getResult().getValue() == null) {
+                        callback.onFailure("Store does not exist.");
+                    } else {
+                        HashMap<String, Object> existingStore = (HashMap<String, Object>) task.getResult().getValue();
+                        String existingOwnerUid = (String) existingStore.get("ownerUid");
+                        if (existingOwnerUid != null && existingOwnerUid.equals(uid)) {
+                            callback.onSuccess();
+                        } else {
+                            callback.onFailure("You do not own this store.");
                         }
                     }
                 }
-            });
-        } else {
-            dbRef.child("stores").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    if (!task.isSuccessful()) {
-                        Log.e("firebase", "Error getting data", task.getException());
-                    } else {
-                        HashMap<String, Object> existing_stores = (HashMap<String, Object>) task.getResult().getValue();
-
-                        if (existing_stores == null || existing_stores.get(store.name) == null) {
-                            dbRef.child("stores").child(store.name).setValue(store);
-                        }
-                    }
-                }
-            });
-        }
+            }
+        });
     }
 
     public void addProduct(Product product, String store_name) {
@@ -426,6 +478,11 @@ public class RealtimeDatabase {
     public void addImageLinkToProduct(String store_name, String product_id, String image_url) {
         String key = image_url.substring(image_url.lastIndexOf("/") + 1);
         dbRef.child("products").child(store_name).child(product_id).child("image_urls").child(key).setValue(image_url);
+    }
+
+    public interface AuthResultCallback {
+        void onSuccess();
+        void onFailure(String errorMessage);
     }
 
     public interface GetFavStoresCallback {

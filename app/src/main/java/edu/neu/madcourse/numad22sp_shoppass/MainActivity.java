@@ -20,6 +20,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -87,10 +88,23 @@ public class MainActivity extends AppCompatActivity {
         clearDatabase();
         requestingStorage = false;
 
-        Customer customer = new Customer("customer1", "123456");
-        Store store = new Store("store1", "Central Park, NYC");
-        myDatabase.changeUser(true, customer, null);
-        myDatabase.changeUser(false, null, store);
+        // NOTE: Test data setup. In production, users must authenticate via
+        // FirebaseAuth before writing to the database. These test operations
+        // require an authenticated session to succeed with the security rules.
+        Customer customer = new Customer("customer1", "test-uid");
+        Store store = new Store("store1", "Central Park, NYC", "test-uid");
+        myDatabase.registerCustomer("test-uid", customer, new RealtimeDatabase.AuthResultCallback() {
+            @Override
+            public void onSuccess() { }
+            @Override
+            public void onFailure(String errorMessage) { }
+        });
+        myDatabase.registerStore("test-uid", store, new RealtimeDatabase.AuthResultCallback() {
+            @Override
+            public void onSuccess() { }
+            @Override
+            public void onFailure(String errorMessage) { }
+        });
 
         HashMap<String, String> image_urls = new HashMap<String, String>();
         image_urls.put("image_url1", "image_url1");
